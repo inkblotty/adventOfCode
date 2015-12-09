@@ -1059,7 +1059,6 @@ boxArr.forEach(function(box){
 		return a-b;
 	});
 
-	// first find the smallest perimeter
 	w = dim[0];
 	h = dim[1];
 	l = dim[2];
