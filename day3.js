@@ -44,8 +44,58 @@ function removeRepeats(arr){
 	return newArr;
 }
 
-console.log(removeRepeats(processDir(input)).length);
+//console.log(removeRepeats(processDir(input)).length);
 
 // answer: 2592
 
 // --- Part 2 ---
+
+function direction(arrow, vector){
+	if (arrow === '>'){
+		vector[0] = vector[0]+1;
+	}
+	else if (arrow === '<'){
+		vector[0] = vector[0]-1;
+	}
+	else if (arrow === "^"){
+		vector[1] = vector[1]+1;
+	}
+	else {
+		vector[1] = vector[1]-1;
+	}
+
+	return [vector[0], vector[1]];
+}
+
+function processTwoPaths(input){
+	var prev1 = [0,0];
+	var prev2 = [0,0];
+
+	var path1 = [];
+	var path2 = [];
+	var curIndex = 0;
+
+	path1.push(prev1);
+	path2.push(prev2);
+
+	input.split('').forEach(function(arrow){
+		if (curIndex % 2 === 0) {
+			var newCoord = direction(arrow, prev1);
+			path1.push(newCoord);
+			prev1 = newCoord;
+			curIndex++;
+		} else {
+			var newCoord = direction(arrow, prev2);
+			path2.push(newCoord);
+			prev2 = newCoord;
+			curIndex++;
+		}
+	});
+
+	var allHouses = removeRepeats(path1.concat(path2));
+
+	return allHouses;
+}
+
+console.log(processTwoPaths(input).length);
+// answer: 2360
